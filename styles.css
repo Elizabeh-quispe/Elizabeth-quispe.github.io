@@ -1,0 +1,745 @@
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfdfd;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  
+  .logo-text {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+  }
+
+  .main-text {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+  }
+
+  .sub-text {
+    font-size: 0.9rem;
+  }
+
+  .btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+
+  .btn-whatsapp:hover {
+    background-color: #1ebe5b;
+    color: white;
+  }
+
+  .navbar-custom {
+    background-color: #005792;
+  }
+  
+  /* Hero */
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background: #e0f7fa;
+  }
+  
+  .hero-text {
+    flex: 1 1 40%;
+    padding: 20px;
+  }
+  
+  /* Usamos la fuente Pacifico para el título */
+  .titulo-creativo {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5rem;
+    color: #005792;
+  }
+  
+  .hero-image {
+    position: relative;
+    flex: 1 1 50%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    border-radius: 20px;
+  }
+  
+  /* Tags alineados a la derecha, centrados verticalmente */
+  .tags {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-end;
+  }
+  
+  .tags span {
+    background: #00796b;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background 0.6s ease;
+    font-family: 'Pacifico', cursive;
+  }
+  
+  .tags span:hover {
+    background: #002922;
+    cursor: pointer;
+  }
+  
+  
+  /* Clients */
+  .clients {
+    background: #faa6cd;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  .client-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .client-logos a {
+    background: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .client-logos a:hover {
+    transform: scale(1.1);
+    background-color: #e0f2f1;
+  }
+  
+  .client-logos img {
+    height: 40px;
+    max-width: 120px;
+    object-fit: contain;
+  }
+  /* About */
+.about {
+    padding: 10px 20px;
+    background-color: #f4faff;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #004080;
+    margin-bottom: 10px;
+  }
+  
+  .section-description {
+    font-size: 1.4rem;
+    color: #333;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+  }
+  
+ /* Centrado del carrusel */
+ .carousel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  /* Imágenes redondas */
+  .carousel-item img {
+    border-radius: 200px;
+    object-fit: cover;
+    height: 400px;
+  }
+
+  /* Controles más pequeños */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Botón Ver más (abajo a la derecha) */
+  .carousel-button-right {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 5px;
+  }
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  /* Estilos para el título "Qué ofrecemos" */
+  .header-container h2 {
+    font-size: 3rem; /* Aumentando el tamaño */
+    font-weight: 700;
+    color: transparent; /* Hacer que el texto sea transparente */
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-family: 'Merriweather', serif; /* Fuente elegante */
+    background: linear-gradient(135deg, #0288d1, #81d4fa); /* Degradado de color */
+    -webkit-background-clip: text; /* Aplica el fondo solo al texto */
+    background-clip: text; /* Esto puede ser útil para la compatibilidad cruzada */
+}
+
+
+  /* Botón Ver más */
+  .btn-ver-mas {
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-ver-mas:hover {
+    background-color: #004d40;
+  }
+
+  /* Estilos de los servicios y los iconos */
+  .services-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 20px; /* Espacio entre los elementos */
+    justify-items: stretch; /* Estira los elementos para que ocupen el máximo espacio */
+    margin: 0 auto;
+  }
+
+  .services-list .service-item {
+    background: linear-gradient(135deg, #b4e7ff, #b4e7ff);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 280px; /* Altura ajustada */
+  }
+
+  .services-list .service-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .services-list .service-item i {
+    font-size: 2.8rem; /* Icono más grande */
+    color: #fff;
+    background-color: #005792;
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    padding: 15px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px auto; /* Centrado horizontal y espacio abajo */
+  }
+
+  .services-list .service-item h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    font-family: 'Anton', sans-serif;
+  }
+
+  .services-list .service-item p {
+    font-size: 1.6rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: 768px) {
+    .services-list {
+      grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+  }
+.services {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f4f7fb;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  font-family: 'Roboto', sans-serif; /* Fuente para los párrafos */
+}
+
+.services h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Montserrat', sans-serif; /* Fuente para los títulos */
+}
+
+.services-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 20px; /* Espacio ligeramente mayor entre los elementos */
+  justify-items: stretch; /* Estira los elementos para que ocupen el máximo espacio */
+  margin: 0 auto;
+}
+
+.services-list .service-item {
+  background: linear-gradient(135deg, #b4e7ff, #8bc9ff); /* Fondo con degradado suave */
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 280px; /* Altura ajustada para mantener el alineamiento */
+}
+
+.services-list .service-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+}
+
+.services-list .service-item i {
+  font-size: 2.2rem; /* Tamaño del icono ajustado */
+  color: #fff;
+  background-color: #006cfa;
+  display: flex;
+  align-items: center; /* Centrado vertical del icono */
+  justify-content: center; /* Centrado horizontal del icono */
+  padding: 12px; /* Ajuste para que el borde no sea muy grande */
+  border-radius: 50%;
+  width: 70px; /* Tamaño ajustado del icono */
+  height: 70px; /* Tamaño ajustado del icono */
+  margin: 0 auto 20px auto; /* Centrado horizontal y espacio abajo */
+}
+
+.services-list .service-item h3 {
+  font-size: 1.5rem;
+  font-weight: 600; /* Peso de la fuente mayor para destacar el título */
+  color: #333;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif; /* Fuente para los títulos */
+}
+
+.services-list .service-item p {
+  font-size: 1.5rem; /* Texto un poco más pequeño para mejor legibilidad */
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .services-list {
+    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  }
+}
+
+
+  /* Projects */
+  .projects {
+    padding: 30px;
+    background: #f5f5f5;
+  }
+  
+  .related-links {
+    margin-top: 40px;
+  }
+  
+  .related-links h2 {
+    font-size: 1.8rem;
+    text-align: left; /* Alineación del título a la izquierda */
+    margin-bottom: 15px;
+  }
+  
+  .related-links ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start; /* Alineación de los enlaces hacia la izquierda */
+    padding: 0;
+  }
+  
+  .related-links ul li {
+    display: inline-block;
+  }
+  
+  .related-links ul li a {
+    text-decoration: none;
+    background-color: #00796b;
+    color: white;
+    padding: 8px 15px; /* Tamaño de botón más pequeño */
+    font-size: 0.9rem; /* Texto más pequeño */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .related-links ul li a:hover {
+    background-color: #004d40;
+    transform: scale(1.05);
+  }
+  
+  .project-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    border-radius: 10px;
+    width: 400px;
+   
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .card p {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  color: #333;
+  font-family: 'Arial', sans-serif; /* Puedes usar una fuente más llamativa como 'Roboto', 'Poppins', o 'Lora' */
+  font-weight: bold; /* Negrita para mayor énfasis */
+  text-transform: uppercase; /* Para hacer que el texto esté en mayúsculas */
+  letter-spacing: 1px; /* Un poco de espacio entre las letras */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); /* Sombra para un efecto más atractivo */
+}
+
+  
+  .card button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .card button:hover {
+    background: #004d40;
+  }
+  
+  /* Responsivo: ajusta las tarjetas en pantallas pequeñas */
+  @media (max-width: 768px) {
+    .project-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  }
+  
+  /* Footer */
+/* Estilo general del footer */
+.footer {
+    background-color: #333; /* Fondo oscuro para el footer */
+    padding: 40px 20px 60px; /* Reducir el padding inferior para que no ocupe tanto espacio */
+    color: white;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+}
+
+/* Sección de contacto */
+.contact-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Formulario de contacto */
+.card {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    max-width: 350px; /* Ajustar el tamaño del formulario */
+    margin: 0 auto; /* Centrar el formulario */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reducir el gap entre los campos */
+}
+
+/* Reducir el espacio entre los campos */
+.form-group {
+    margin-bottom: 12px; /* Menos margen entre los grupos */
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem; /* Ajustar el tamaño de la fuente */
+    margin-top: 5px; /* Reducir el espacio entre el label y el campo */
+}
+
+/* Botón de enviar */
+.submit-btn {
+    background-color: #27ae60;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #2ecc71;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Información de contacto */
+.footer-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    color: white;
+}
+
+.footer-info p {
+    margin: 10px 0;
+    font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+}
+
+/* Iconos de redes sociales */
+.social-icons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 2rem;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.social-icons a:hover {
+    opacity: 0.8;
+}
+
+/* Colores específicos para cada red social */
+.social-icons .fab.fa-facebook {
+    color: #3b5998;
+}
+
+.social-icons .fab.fa-twitter {
+    color: #1da1f2;
+}
+
+.social-icons .fab.fa-instagram {
+    color: #e4405f;
+}
+
+.social-icons .fab.fa-whatsapp {
+    color: #25d366;
+}
+
+/* Footer bottom */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    right: 20px;
+}
+
+.footer-info .info-pair-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: white;
+}
+
+/* Estilo para el contenedor */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Formulario y tarjeta de mensajes */
+
+
+/* Lista de mensajes */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Asegurar que los labels sean visibles y tengan un estilo adecuado */
+.contact-form-container label {
+    font-weight: bold; /* Hacer el texto en negrita */
+    font-size: 16px; /* Ajustar tamaño de la fuente */
+    color: #333; /* Asegurarnos de que el color sea visible */
+    margin-bottom: 6px; /* Reducir espacio debajo del label */
+    display: block; /* Asegurarse de que el label ocupe toda la línea */
+}
+
+/* Ajustar el estilo de los input y textarea */
+.input-field {
+    width: 90%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 5px; /* Espacio debajo del input */
+    box-sizing: border-box; /* Asegurarse de que el padding no se sume al ancho total */
+}
+/* Estilo para la tarjeta que muestra los mensajes */
+
+  /* Esilo para la tarjeta que contiene el formulario */
+.contact-form-container {
+    width: 100%;
+    max-width: 400px;  /* Establece un ancho máximo para el formulario */
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para la tarjeta que muestra los mensajes */
+  #mensajesCard {
+    display: none; /* Se oculta inicialmente */
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 500px;  /* Asegura que no se haga más grande que el formulario */
+    overflow-y: auto;  /* Permite que los mensajes tengan desplazamiento si crecen demasiado */
+    height: 500px;  /* Establece una altura fija para la tarjeta de mensajes */
+  }
+  
+
+  
+  /* Estilo para el título "Mensajes Enviados" */
+  #mensajesCard h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para los mensajes */
+  #datosLista {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #datosLista li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fafafa;
+  }
+  
+  /* Estilo para el mensaje individual */
+  #datosLista li strong {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  #datosLista li hr {
+    margin-top: 10px;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+  

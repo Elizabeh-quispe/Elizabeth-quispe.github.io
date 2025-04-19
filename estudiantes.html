@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Estudiantes, Materias y Notas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f0f8ff; }
+    .container { margin-top: 30px; }
+    .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; }
+    .form-control, .btn { border-radius: 10px; }
+    .list-group-item { display: flex; justify-content: space-between; align-items: center; }
+    .btn-group { display: flex; gap: 5px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center mb-4 text-primary">📚 Registro de Estudiantes, Materias y Notas</h1>
+  <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#estudiantes">Estudiantes</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#materias">Materias</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#notas">Notas</button></li>
+  </ul>
+  <div class="tab-content" id="tabContent">
+    <!-- Estudiantes -->
+    <div class="tab-pane fade show active" id="estudiantes">
+      <div class="card p-4 mt-3">
+        <h5>Registrar Estudiante</h5>
+        <input type="text" id="nombreEst" class="form-control mb-2" placeholder="Nombre">
+        <input type="number" id="edadEst" class="form-control mb-2" placeholder="Edad">
+        <input type="text" id="cursoEst" class="form-control mb-2" placeholder="Curso (Ej: 3B)">
+        <button onclick="agregarEstudiante()" class="btn btn-success">Agregar</button>
+      </div>
+      <div class="mt-3">
+        <h5>Lista de Estudiantes</h5>
+        <ul id="listaEstudiantes" class="list-group"></ul>
+      </div>
+    </div>
+    <!-- Materias -->
+    <div class="tab-pane fade" id="materias">
+      <div class="card p-4 mt-3">
+        <h5>Registrar Materia</h5>
+        <input type="text" id="nombreMat" class="form-control mb-2" placeholder="Nombre de la Materia">
+        <input type="text" id="profesorMat" class="form-control mb-2" placeholder="Nombre del Profesor">
+        <button onclick="agregarMateria()" class="btn btn-success">Agregar</button>
+      </div>
+      <div class="mt-3">
+        <h5>Lista de Materias</h5>
+        <ul id="listaMaterias" class="list-group"></ul>
+      </div>
+    </div>
+    <!-- Notas -->
+    <div class="tab-pane fade" id="notas">
+      <div class="card p-4 mt-3">
+        <h5>Registrar Nota</h5>
+        <select id="selectEstudiante" class="form-control mb-2"></select>
+        <select id="selectMateria" class="form-control mb-2"></select>
+        <input type="number" id="notaInput" class="form-control mb-2" placeholder="Nota (0-100)">
+        <button onclick="agregarNota()" class="btn btn-success">Agregar</button>
+      </div>
+      <div class="mt-3">
+        <h5>Lista de Notas</h5>
+        <ul id="listaNotas" class="list-group"></ul>
+      </div>
+    </div>
+  </div>
+  <button onclick="reiniciarBaseDeDatos()" class="btn btn-danger mt-3">🗑️ Reiniciar Base de Datos</button>
+  <button onclick="location.reload()" class="btn btn-secondary mt-2">Recargar Página</button>
+</div>
+
+<!-- Modal de Edición Estudiante -->
+<div class="modal fade" id="modalEditarEstudiante" tabindex="-1" aria-labelledby="modalEditarEstudianteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarEstudianteLabel">Editar Estudiante</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="nombreEditEst" class="form-control mb-2" placeholder="Nuevo Nombre">
+        <input type="number" id="edadEditEst" class="form-control mb-2" placeholder="Nueva Edad">
+        <input type="text" id="cursoEditEst" class="form-control mb-2" placeholder="Nuevo Curso">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="guardarEdicionEstudiante()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Edición Materia -->
+<div class="modal fade" id="modalEditarMateria" tabindex="-1" aria-labelledby="modalEditarMateriaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarMateriaLabel">Editar Materia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="nombreEditMat" class="form-control mb-2" placeholder="Nuevo Nombre de la Materia">
+        <input type="text" id="profesorEditMat" class="form-control mb-2" placeholder="Nuevo Profesor">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="guardarEdicionMateria()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Edición Nota -->
+<!-- Modal Editar Nota -->
+<div class="modal fade" id="modalEditarNota" tabindex="-1" aria-labelledby="modalEditarNotaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarNotaLabel">Editar Nota</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="selectEditEstudiante" class="form-label">Estudiante</label>
+            <select class="form-select" id="selectEditEstudiante"></select>
+          </div>
+          <div class="mb-3">
+            <label for="selectEditMateria" class="form-label">Materia</label>
+            <select class="form-select" id="selectEditMateria"></select>
+          </div>
+          <div class="mb-3">
+            <label for="notaEditInput" class="form-label">Nota</label>
+            <input type="number" class="form-control" id="notaEditInput" min="0" max="100">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnGuardarEdicionNota">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let db;
+const request = indexedDB.open("BD_Colegio", 1);
+
+request.onupgradeneeded = function (e) {
+  db = e.target.result;
+  db.createObjectStore("estudiantes", { keyPath: "id", autoIncrement: true });
+  db.createObjectStore("materias", { keyPath: "id", autoIncrement: true });
+  db.createObjectStore("notas", { keyPath: "id", autoIncrement: true });
+};
+
+request.onsuccess = function (e) {
+  db = e.target.result;
+  mostrarEstudiantes();
+  mostrarMaterias();
+  mostrarNotas();
+};
+
+// Agregar Estudiante
+function agregarEstudiante() {
+  const nombreEstudiante = document.getElementById("nombreEst").value;
+  const edad = parseInt(document.getElementById("edadEst").value);
+  const curso = document.getElementById("cursoEst").value;
+  const trans = db.transaction(["estudiantes"], "readwrite");
+  const store = trans.objectStore("estudiantes");
+  store.add({ nombreEstudiante, edad, curso });
+  trans.oncomplete = () => mostrarEstudiantes();
+}
+
+// Mostrar Estudiantes
+function mostrarEstudiantes() {
+  const lista = document.getElementById("listaEstudiantes");
+  const trans = db.transaction(["estudiantes"], "readonly");
+  const store = trans.objectStore("estudiantes");
+  lista.innerHTML = "";
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, nombreEstudiante, edad, curso } = cursor.value;
+      lista.innerHTML += `
+        <li class="list-group-item">
+          👨‍🎓 ${nombreEstudiante}, Edad: ${edad}, Curso: ${curso}
+          <div class="btn-group">
+            <button class="btn btn-info" onclick="verEstudiante(${id})">Ver</button>
+            <button class="btn btn-warning" onclick="editarEstudiante(${id})">Editar</button>
+            <button class="btn btn-danger" onclick="eliminarEstudiante(${id})">Eliminar</button>
+          </div>
+        </li>`;
+      cursor.continue();
+    }
+  };
+}
+
+// Ver Estudiante
+function verEstudiante(id) {
+  const trans = db.transaction(["estudiantes"], "readonly");
+  const store = trans.objectStore("estudiantes");
+  const request = store.get(id);
+  request.onsuccess = function (e) {
+    const estudiante = e.target.result;
+    alert(`Nombre: ${estudiante.nombreEstudiante}\nEdad: ${estudiante.edad}\nCurso: ${estudiante.curso}`);
+  };
+}
+
+// Editar Estudiante
+function editarEstudiante(id) {
+  const trans = db.transaction(["estudiantes"], "readonly");
+  const store = trans.objectStore("estudiantes");
+  const request = store.get(id);
+  request.onsuccess = function (e) {
+    const estudiante = e.target.result;
+    document.getElementById("nombreEditEst").value = estudiante.nombreEstudiante;
+    document.getElementById("edadEditEst").value = estudiante.edad;
+    document.getElementById("cursoEditEst").value = estudiante.curso;
+    const guardarBtn = document.querySelector("#modalEditarEstudiante .btn-primary");
+    guardarBtn.onclick = function () {
+      guardarEdicionEstudiante(id);
+    };
+    new bootstrap.Modal(document.getElementById('modalEditarEstudiante')).show();
+  };
+}
+
+// Guardar Edición Estudiante
+function guardarEdicionEstudiante(id) {
+  const nombre = document.getElementById("nombreEditEst").value;
+  const edad = document.getElementById("edadEditEst").value;
+  const curso = document.getElementById("cursoEditEst").value;
+  const trans = db.transaction(["estudiantes"], "readwrite");
+  const store = trans.objectStore("estudiantes");
+  store.put({ id, nombreEstudiante: nombre, edad: parseInt(edad), curso });
+  trans.oncomplete = function () {
+    mostrarEstudiantes();
+    new bootstrap.Modal(document.getElementById('modalEditarEstudiante')).hide();
+  };
+}
+
+// Eliminar Estudiante
+function eliminarEstudiante(id) {
+  const trans = db.transaction(["estudiantes"], "readwrite");
+  const store = trans.objectStore("estudiantes");
+  store.delete(id);
+  trans.oncomplete = function () {
+    mostrarEstudiantes();
+  };
+}
+
+// Agregar Materia
+function agregarMateria() {
+  const nombreMateria = document.getElementById("nombreMat").value;
+  const profesor = document.getElementById("profesorMat").value;
+  const trans = db.transaction(["materias"], "readwrite");
+  const store = trans.objectStore("materias");
+  store.add({ nombreMateria, profesor });
+  trans.oncomplete = () => mostrarMaterias();
+}
+
+// Mostrar Materias
+function mostrarMaterias() {
+  const lista = document.getElementById("listaMaterias");
+  const trans = db.transaction(["materias"], "readonly");
+  const store = trans.objectStore("materias");
+  lista.innerHTML = "";
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, nombreMateria, profesor } = cursor.value;
+      lista.innerHTML += `
+        <li class="list-group-item">
+          📚 ${nombreMateria}, Profesor: ${profesor}
+          <div class="btn-group">
+            <button class="btn btn-warning" onclick="editarMateria(${id})">Editar</button>
+            <button class="btn btn-danger" onclick="eliminarMateria(${id})">Eliminar</button>
+          </div>
+        </li>`;
+      cursor.continue();
+    }
+  };
+}
+
+// Editar Materia
+function editarMateria(id) {
+  const trans = db.transaction(["materias"], "readonly");
+  const store = trans.objectStore("materias");
+  const request = store.get(id);
+  request.onsuccess = function (e) {
+    const materia = e.target.result;
+    document.getElementById("nombreEditMat").value = materia.nombreMateria;
+    document.getElementById("profesorEditMat").value = materia.profesor;
+    const guardarBtn = document.querySelector("#modalEditarMateria .btn-primary");
+    guardarBtn.onclick = function () {
+      guardarEdicionMateria(id);
+    };
+    new bootstrap.Modal(document.getElementById('modalEditarMateria')).show();
+  };
+}
+
+// Guardar Edición Materia
+function guardarEdicionMateria(id) {
+  const nombre = document.getElementById("nombreEditMat").value;
+  const profesor = document.getElementById("profesorEditMat").value;
+  const trans = db.transaction(["materias"], "readwrite");
+  const store = trans.objectStore("materias");
+  store.put({ id, nombreMateria: nombre, profesor });
+  trans.oncomplete = function () {
+    mostrarMaterias();
+    new bootstrap.Modal(document.getElementById('modalEditarMateria')).hide();
+  };
+}
+
+// Eliminar Materia
+function eliminarMateria(id) {
+  const trans = db.transaction(["materias"], "readwrite");
+  const store = trans.objectStore("materias");
+  store.delete(id);
+  trans.oncomplete = function () {
+    mostrarMaterias();
+  };
+}
+
+/// Mostrar Estudiantes para el selector de Notas
+function mostrarEstudiantes() {
+  const lista = document.getElementById("listaEstudiantes");
+  const selectEstudiante = document.getElementById("selectEstudiante");
+  const trans = db.transaction(["estudiantes"], "readonly");
+  const store = trans.objectStore("estudiantes");
+  
+  lista.innerHTML = "";
+  selectEstudiante.innerHTML = ""; // Limpiar el selector de estudiantes
+
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, nombreEstudiante, edad, curso } = cursor.value;
+      lista.innerHTML += `
+        <li class="list-group-item">
+          👨‍🎓 ${nombreEstudiante}, Edad: ${edad}, Curso: ${curso}
+          <div class="btn-group">
+            <button class="btn btn-info" onclick="verEstudiante(${id})">Ver</button>
+            <button class="btn btn-warning" onclick="editarEstudiante(${id})">Editar</button>
+            <button class="btn btn-danger" onclick="eliminarEstudiante(${id})">Eliminar</button>
+          </div>
+        </li>`;
+      
+      // Agregar opciones al select de estudiantes
+      selectEstudiante.innerHTML += `<option value="${id}">${nombreEstudiante}</option>`;
+      cursor.continue();
+    }
+  };
+}
+
+// Mostrar Materias para el selector de Notas
+function mostrarMaterias() {
+  const lista = document.getElementById("listaMaterias");
+  const selectMateria = document.getElementById("selectMateria");
+  const trans = db.transaction(["materias"], "readonly");
+  const store = trans.objectStore("materias");
+  
+  lista.innerHTML = "";
+  selectMateria.innerHTML = ""; // Limpiar el selector de materias
+
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, nombreMateria, profesor } = cursor.value;
+      lista.innerHTML += `
+        <li class="list-group-item">
+          📚 ${nombreMateria}, Profesor: ${profesor}
+          <div class="btn-group">
+            <button class="btn btn-warning" onclick="editarMateria(${id})">Editar</button>
+            <button class="btn btn-danger" onclick="eliminarMateria(${id})">Eliminar</button>
+          </div>
+        </li>`;
+      
+      // Agregar opciones al select de materias
+      selectMateria.innerHTML += `<option value="${id}">${nombreMateria}</option>`;
+      cursor.continue();
+    }
+  };
+}
+
+// Funciones básicas para Notas
+// Agregar Nota
+function agregarNota() {
+  const estudianteId = parseInt(document.getElementById("selectEstudiante").value);
+  const materiaId = parseInt(document.getElementById("selectMateria").value);
+  const nota = parseInt(document.getElementById("notaInput").value);
+
+  const trans = db.transaction(["notas"], "readwrite");
+  const store = trans.objectStore("notas");
+  store.add({ estudianteId, materiaId, nota });
+  trans.oncomplete = () => mostrarNotas();
+}
+
+// Mostrar Notas
+function mostrarNotas() {
+  const lista = document.getElementById("listaNotas");
+  lista.innerHTML = "";
+
+  const transNotas = db.transaction(["notas"], "readonly");
+  const storeNotas = transNotas.objectStore("notas");
+
+  storeNotas.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, estudianteId, materiaId, nota } = cursor.value;
+
+      obtenerNombreEstudiante(estudianteId, function (nombreEstudiante) {
+        obtenerNombreMateria(materiaId, function (nombreMateria) {
+          const li = document.createElement("li");
+          li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+          li.innerHTML = `
+            <div>
+              <strong>👨‍🎓${nombreEstudiante}</strong> - 📚${nombreMateria}: <span id="nota-${id}">${nota}</span>
+            </div>
+            <div>
+              <button class="btn btn-warning btn-sm me-2" onclick="editarNota(${id})">Editar</button>
+              <button class="btn btn-danger btn-sm" onclick="eliminarNota(${id})">Eliminar</button>
+            </div>
+          `;
+          lista.appendChild(li);
+        });
+      });
+
+      cursor.continue();
+    }
+  };
+}
+
+// Eliminar Nota
+function eliminarNota(id) {
+  const trans = db.transaction(["notas"], "readwrite");
+  const store = trans.objectStore("notas");
+  store.delete(id);
+
+  trans.oncomplete = () => {
+    mostrarNotas();
+    alert("Nota eliminada correctamente.");
+  };
+}
+
+// Editar Nota
+function editarNota(id) {
+  const trans = db.transaction(["notas"], "readonly");
+  const store = trans.objectStore("notas");
+  const request = store.get(id);
+
+  request.onsuccess = () => {
+    const nota = request.result;
+
+    // Llenar los selects con los estudiantes y materias actuales
+    llenarSelectEstudiantes("selectEditEstudiante", nota.estudianteId);
+    llenarSelectMaterias("selectEditMateria", nota.materiaId);
+
+    // Rellenar el campo de nota
+    document.getElementById("notaEditInput").value = nota.nota;
+
+    // Asignar función al botón guardar
+    const btnGuardar = document.getElementById("btnGuardarEdicionNota");
+    btnGuardar.onclick = () => guardarEdicionNota(id);
+
+    // Mostrar el modal
+    new bootstrap.Modal(document.getElementById("modalEditarNota")).show();
+  };
+}
+
+// Función para llenar el select de estudiantes
+function llenarSelectEstudiantes(idSelect, seleccionadoId) {
+  const select = document.getElementById(idSelect);
+  select.innerHTML = "";
+
+  const trans = db.transaction(["estudiantes"], "readonly");
+  const store = trans.objectStore("estudiantes");
+
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, nombreEstudiante } = cursor.value;
+      const selected = id === seleccionadoId ? "selected" : "";
+      select.innerHTML += `<option value="${id}" ${selected}>${nombreEstudiante}</option>`;
+      cursor.continue();
+    }
+  };
+}
+
+// Función para llenar el select de materias
+function llenarSelectMaterias(idSelect, seleccionadoId) {
+  const select = document.getElementById(idSelect);
+  select.innerHTML = "";
+
+  const trans = db.transaction(["materias"], "readonly");
+  const store = trans.objectStore("materias");
+
+  store.openCursor().onsuccess = function (e) {
+    const cursor = e.target.result;
+    if (cursor) {
+      const { id, nombreMateria } = cursor.value;
+      const selected = id === seleccionadoId ? "selected" : "";
+      select.innerHTML += `<option value="${id}" ${selected}>${nombreMateria}</option>`;
+      cursor.continue();
+    }
+  };
+}
+
+// Guardar Edición de Nota
+function guardarEdicionNota(id) {
+  const estudianteId = parseInt(document.getElementById("selectEditEstudiante").value);
+  const materiaId = parseInt(document.getElementById("selectEditMateria").value);
+  const nota = parseInt(document.getElementById("notaEditInput").value);
+
+  if (isNaN(nota) || nota < 0 || nota > 100) {
+    alert("Por favor, introduce una nota válida entre 0 y 100.");
+    return;
+  }
+
+  const trans = db.transaction(["notas"], "readwrite");
+  const store = trans.objectStore("notas");
+
+  store.put({ id, estudianteId, materiaId, nota });
+
+  trans.oncomplete = () => {
+    mostrarNotas();
+    bootstrap.Modal.getInstance(document.getElementById("modalEditarNota")).hide();
+    alert("Nota actualizada correctamente.");
+  };
+}
+// Utilidades para mostrar nombres
+function obtenerNombreEstudiante(id, callback) {
+  const trans = db.transaction(["estudiantes"], "readonly");
+  const store = trans.objectStore("estudiantes");
+  const req = store.get(id);
+  req.onsuccess = () => callback(req.result ? req.result.nombreEstudiante : "Desconocido");
+}
+
+function obtenerNombreMateria(id, callback) {
+  const trans = db.transaction(["materias"], "readonly");
+  const store = trans.objectStore("materias");
+  const req = store.get(id);
+  req.onsuccess = () => callback(req.result ? req.result.nombreMateria : "Desconocido");
+}
+
+// Reiniciar base de datos
+function reiniciarBaseDeDatos() {
+  indexedDB.deleteDatabase("BD_Colegio");
+  alert("Base de datos reiniciada. La página se recargará.");
+  location.reload();
+}</script>
+</body>
+</html>
